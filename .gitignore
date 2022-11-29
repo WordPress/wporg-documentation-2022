@@ -30,3 +30,4 @@ phpcs.xml.dist
 !/source/wp-content/plugins
 !/source/wp-content/plugins/support-helphub
 !/source/wp-content/mu-plugins
+!/source/wp-content/mu-plugins/site-support.php
