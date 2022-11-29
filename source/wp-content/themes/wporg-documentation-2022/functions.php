@@ -8,6 +8,7 @@ namespace WordPressdotorg\Theme\Documentation_2022;
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_filter( 'render_block_core/pattern', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
 add_filter( 'the_content', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
+add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 
 /**
  * Enqueue scripts and styles.
@@ -33,4 +34,19 @@ function enqueue_assets() {
  */
 function prevent_arrow_emoji( $content ) {
 	return preg_replace( '/([←↑→↓↔↕↖↗↘↙])/u', '\1&#65038;', $content );
+}
+
+/**
+ * Update the breadcrumbs format for this site.
+ *
+ * @param array $breadcrumbs An array of breadcrumb links.
+ * @return array Updated breadcrumbs.
+ */
+function set_site_breadcrumbs( $breadcrumbs ) {
+	if ( is_front_page() ) {
+		return array();
+	}
+
+	$breadcrumbs[0]['title'] = __( 'Documentation', 'wporg-docs' );
+	return $breadcrumbs;
 }

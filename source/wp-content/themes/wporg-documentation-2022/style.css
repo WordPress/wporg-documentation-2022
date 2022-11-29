@@ -41,3 +41,14 @@
 .wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper .wp-block-search__button svg {
 	fill: inherit;
 }
+
+.wp-block-wporg-site-breadcrumbs {
+	min-height: 23px;
+}
+
+@media (max-width: 781px) {
+	.wp-block-column[style*="border-right-"] {
+		border-right: none !important;
+		border-bottom: 1px solid var(--wp--preset--color--light-grey-1);
+	}
+}
