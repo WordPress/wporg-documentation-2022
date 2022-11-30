@@ -28,11 +28,11 @@ jobs:
 
             - name: Lint CSS
               run: |
-                  yarn workspaces lint:css
+                  yarn workspaces run lint:css
 
             - name: Lint JS
               run: |
-                  yarn workspaces lint:js
+                  yarn workspaces run lint:js
 
             - name: Lint PHP
               run: |
