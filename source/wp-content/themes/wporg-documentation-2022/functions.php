@@ -19,9 +19,9 @@ function enqueue_assets() {
 	// stylesheet as a dependency.
 	wp_enqueue_style(
 		'wporg-docs-2021-style',
-		get_stylesheet_uri(),
+		get_stylesheet_directory_uri() . '/build/style/style-index.css',
 		array( 'wporg-parent-2021-style', 'wporg-global-fonts' ),
-		filemtime( __DIR__ . '/style.css' )
+		filemtime( __DIR__ . '/build/style/style-index.css' )
 	);
 }
 
