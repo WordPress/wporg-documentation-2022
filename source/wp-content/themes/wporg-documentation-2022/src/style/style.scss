@@ -3,6 +3,21 @@
  * templates or theme.json settings.
  */
 
+// Locally override this value to create a fixed breakpoint, rather than the
+// scaling effect from `clamp(…)`.
+// @todo Maybe move this to the parent theme, if this behavior is preferred.
+body[class] {
+	--wp--preset--spacing--60: 20px;
+}
+
+@media (min-width: 890px) {
+
+	// When larger than 890px, this should snap to 80px.
+	body[class] {
+		--wp--preset--spacing--60: 80px;
+	}
+}
+
 .wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper {
 	--wp--custom--button--hover--color--text: var(--wp--preset--color--charcoal-1);
 	--wp--custom--button--hover--color--background: var(--wp--preset--color--light-grey-2);
@@ -28,6 +43,15 @@
 			fill: inherit;
 		}
 	}
+}
+
+// Update border color in secondary search style, this site uses a light grey.
+.wp-block-search.is-style-secondary-search-control {
+	--local--border-color: var(--wp--preset--color--light-grey-1);
+}
+
+.wp-block-term-description p {
+	margin: 0;
 }
 
 .wp-block-wporg-site-breadcrumbs {

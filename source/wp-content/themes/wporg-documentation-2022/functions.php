@@ -9,6 +9,7 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
 add_filter( 'render_block_core/pattern', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
 add_filter( 'the_content', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
+add_action( 'pre_get_posts', __NAMESPACE__ . '\pre_get_posts' );
 
 /**
  * Enqueue scripts and styles.
@@ -49,4 +50,23 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 
 	$breadcrumbs[0]['title'] = __( 'Documentation', 'wporg-docs' );
 	return $breadcrumbs;
+}
+
+/**
+ * Filter the default query.
+ *
+ * Used to render posts on archive pages (query.inherit = true).
+ *
+ * @param \WP_Query $query The WordPress Query object.
+ */
+function pre_get_posts( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	// Show many articles on the archive pages.
+	if ( ! $query->is_singular() ) {
+		$query->set( 'posts_per_page', 50 );
+		$query->set( 'orderby', 'menu_order post_title' );
+	}
 }
