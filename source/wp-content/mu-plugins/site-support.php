@@ -2,7 +2,7 @@
 // phpcs:disable Generic.Functions.OpeningFunctionBraceKernighanRitchie.ContentAfterBrace
 // phpcs:disable Generic.Formatting.DisallowMultipleStatements.SameLine
 /**
- * This mu-plugin is loaded only on the wordpress.org/support/ site.
+ * This mu-plugin is loaded only on the wordpress.org/support/ site.
  *
  * Used for theme-switching the new theme on specific pages.
  */
