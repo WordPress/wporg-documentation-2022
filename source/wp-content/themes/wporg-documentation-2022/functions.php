@@ -11,6 +11,9 @@ add_filter( 'the_content', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\pre_get_posts' );
 
+// Remove table of contents.
+add_filter( 'wporg_handbook_toc_should_add_toc', '__return_false' );
+
 /**
  * Enqueue scripts and styles.
  */
