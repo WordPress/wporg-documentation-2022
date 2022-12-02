@@ -18,6 +18,10 @@ body[class] {
 	}
 }
 
+p.has-background {
+	padding: var(--wp--preset--spacing--20);
+}
+
 .wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper {
 	--wp--custom--button--hover--color--text: var(--wp--preset--color--charcoal-1);
 	--wp--custom--button--hover--color--background: var(--wp--preset--color--light-grey-2);
