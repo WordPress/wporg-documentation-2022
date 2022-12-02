@@ -22,6 +22,19 @@ p.has-background {
 	padding: var(--wp--preset--spacing--20);
 }
 
+// Slot the search & table of contents into a floating sidebar on large screens.
+@media (min-width: 1280px) {
+	.sidebar-container {
+		position: absolute;
+		// 57px is height of the sticky bar.
+		top: calc(var(--wp-global-header-offset, 0px) + 57px);
+		left: calc(var(--wp--style--global--content-size) + var(--wp--preset--spacing--60) + var(--wp--preset--spacing--80));
+		right: var(--wp--preset--spacing--60);
+		margin-top: var(--wp--preset--spacing--40) !important;
+		max-width: var(--wp--style--global--content-size);
+	}
+}
+
 .wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper {
 	--wp--custom--button--hover--color--text: var(--wp--preset--color--charcoal-1);
 	--wp--custom--button--hover--color--background: var(--wp--preset--color--light-grey-2);
