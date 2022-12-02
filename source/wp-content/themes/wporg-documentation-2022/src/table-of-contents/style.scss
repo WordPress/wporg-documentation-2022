@@ -1,3 +1,4 @@
+// stylelint-disable-next-line selector-id-pattern
 #wp--skip-link--target {
 	scroll-margin-top: var(--wp-local-header-offset, 0);
 }
@@ -12,6 +13,7 @@
 		height: 24px;
 		text-decoration: none !important;
 		vertical-align: baseline;
+
 		// stylelint-disable-next-line function-url-quotes
 		background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.083 17.639H8.444a5.194 5.194 0 1 1 0-10.389H10.084v1.5H8.443a3.694 3.694 0 0 0 0 7.389H10.084v1.5ZM13.917 7.25h1.639a5.194 5.194 0 0 1 0 10.39H13.915v-1.5H15.557a3.694 3.694 0 0 0 0-7.39H13.915v-1.5Zm-4.584 6.084h5.334v-1.5H9.333v1.5Z' fill='%233858E9'/%3E%3C/svg%3E%0A");
 	}

@@ -36,6 +36,10 @@ p.has-background {
 		right: var(--wp--preset--spacing--60);
 		margin-top: var(--wp--preset--spacing--40) !important;
 		max-width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size));
+
+		&.is-fixed-sidebar {
+			position: fixed;
+		}
 	}
 }
 

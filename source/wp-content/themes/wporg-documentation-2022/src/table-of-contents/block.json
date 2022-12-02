@@ -18,7 +18,7 @@
 		},
 		"spacing": {
 			"margin": true,
-			"padding": false
+			"padding": true
 		},
 		"typography": {
 			"fontSize": true,
@@ -26,5 +26,6 @@
 		}
 	},
 	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
 	"style": "file:./style-index.css"
 }
