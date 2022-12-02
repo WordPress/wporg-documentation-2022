@@ -10,6 +10,15 @@ add_filter( 'render_block_core/pattern', __NAMESPACE__ . '\prevent_arrow_emoji',
 add_filter( 'the_content', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\pre_get_posts' );
+add_filter( 'comment_form_defaults', __NAMESPACE__ . '\comment_form_defaults' );
+add_filter( 'comment_form_field_comment', __NAMESPACE__ . '\hide_field_after_submission' );
+add_filter( 'comment_form_submit_field', __NAMESPACE__ . '\hide_field_after_submission' );
+
+// Enforce log in to leave feedback.
+add_filter( 'pre_option_comment_registration', '__return_true' );
+
+// Remove table of contents.
+add_filter( 'wporg_handbook_toc_should_add_toc', '__return_false' );
 
 /**
  * Enqueue scripts and styles.
@@ -69,4 +78,85 @@ function pre_get_posts( $query ) {
 		$query->set( 'posts_per_page', 50 );
 		$query->set( 'orderby', 'menu_order post_title' );
 	}
+}
+
+/**
+ * Check if the current page has the submission parameter.
+ *
+ * This seems to work but I'm not sure where it's set.
+ */
+function has_submitted_comment_form() {
+	return isset( $_GET['feedback_submitted'] ) && $_GET['feedback_submitted'];  // phpcs:ignore
+}
+
+/**
+ * Update the comment form settings.
+ *
+ * @param array $fields The default comment form arguments.
+ *
+ * @return array Returns the modified fields.
+ */
+function comment_form_defaults( $fields ) {
+	$post    = get_post();
+	$post_id = $post->ID;
+
+	$user          = wp_get_current_user();
+	$user_identity = $user->exists() ? $user->display_name : '';
+
+	$str_log_in = sprintf(
+		/* translators: 1: log in link, 2: support forums link. */
+		__( '<a href="%1$s">Log in</a> to submit feedback. If you need suppport with something that wasn&#39;t covered by this article, please post your question in the <a href="%2$s">support forums</a>.', 'wporg-docs' ),
+		esc_url( wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) ) ),
+		esc_url( home_url( '/forums/' ) )
+	);
+	$fields['must_log_in'] = '<p class="must-log-in">' . $str_log_in . '</p>';
+
+	$fields['title_reply_before'] = '<h2 id="reply-title" class="comment-reply-title has-heading-3-font-size" style="margin-top:0">';
+	$fields['title_reply_after']  = '</h2>';
+	$fields['title_reply']        = __( 'Was this article helpful? How could it be improved?', 'wporg-docs' );
+	if ( has_submitted_comment_form() ) {
+		$fields['title_reply'] = __( 'Thank you for your feedback!', 'wporg-docs' );
+	}
+
+	$fields['label_submit'] = __( 'Submit feedback', 'wporg-docs' );
+
+	$fields['logged_in_as']  = '<p>';
+	$fields['logged_in_as'] .= __( 'Feedback you send to us will go only to the folks who maintain documentation. They may reach out in case there are questions or would like to followup feedback. But that too will stay behind the scenes.', 'wporg-docs' );
+	$fields['logged_in_as'] .= '</p></p>';
+	$fields['logged_in_as'] .= sprintf(
+		/* translators: %s: support forums link. */
+		__( 'This is not for personalized support. Please create a <a href="%s">forum thread</a> instead to receive help from the community.', 'wporg-docs' ),
+		esc_url( home_url( '/forums/' ) )
+	);
+	$fields['logged_in_as'] .= '</p>';
+
+	$fields['comment_notes_after']  = '<p class="logged-in-as">';
+	$fields['comment_notes_after'] .= sprintf(
+		/* translators: 1: User name, 2: Logout URL. */
+		__( 'Logged in as %1$s (<a href="%2$s">log out?</a>)', 'wporg-docs' ),
+		$user_identity,
+		wp_logout_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
+	);
+	$fields['comment_notes_after'] .= '</p>';
+
+	if ( has_submitted_comment_form() ) {
+		$fields['logged_in_as']        = '<p>' . __( 'We will review it as quickly as possible.', 'wporg-docs' ) . '</p>';
+		$fields['comment_notes_after'] = '';
+	}
+
+	return $fields;
+}
+
+/**
+ * Remove the field if the form has been submitted.
+ *
+ * @param string $field The HTML-formatted output of the comment form field.
+ *
+ * @return string Empty string or initial field.
+ */
+function hide_field_after_submission( $field ) {
+	if ( has_submitted_comment_form() ) {
+		return '';
+	}
+	return $field;
 }
