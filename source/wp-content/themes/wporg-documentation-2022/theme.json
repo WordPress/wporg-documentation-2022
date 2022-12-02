@@ -4,6 +4,39 @@
 	"settings": {},
 	"styles": {
 		"blocks": {
+			"core/preformatted": {
+				"border": {
+					"color": "var(--wp--preset--color--light-grey-1)",
+					"radius": "2px",
+					"style": "solid",
+					"width": "1px"
+				},
+				"color": {
+					"background": "var(--wp--preset--color--light-grey-2)",
+					"text": "var(--wp--preset--color--charcoal-1)"
+				},
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--monospace)"
+				},
+				"spacing": {
+					"padding": "var(--wp--preset--spacing--20)"
+				}
+			},
+			"core/code": {
+				"border": {
+					"color": "var(--wp--preset--color--light-grey-1)",
+					"radius": "2px",
+					"style": "solid",
+					"width": "1px"
+				},
+				"color": {
+					"background": "var(--wp--preset--color--light-grey-2)",
+					"text": "var(--wp--preset--color--charcoal-1)"
+				},
+				"spacing": {
+					"padding": "var(--wp--preset--spacing--20)"
+				}
+			},
 			"core/table": {
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--normal)"
