@@ -41,6 +41,11 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--normal)"
 				}
+			},
+			"wporg/table-of-contents": {
+				"color": {
+					"text": "var(--wp--preset--color--blueberry-1)"
+				}
 			}
 		}
 	}
