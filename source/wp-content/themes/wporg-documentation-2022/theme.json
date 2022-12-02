@@ -1,5 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
-	"settings": {}
+	"settings": {},
+	"styles": {
+		"blocks": {
+			"core/table": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--normal)"
+				}
+			}
+		}
+	}
 }
