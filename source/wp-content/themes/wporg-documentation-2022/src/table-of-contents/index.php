@@ -71,7 +71,8 @@ function render( $attributes, $content, $block ) {
 		'the_content',
 		function( $content ) use ( $items ) {
 			return inject_ids_into_headings( $content, $items );
-		}
+		},
+		5 // Run early, before special character handling, so the items match.
 	);
 
 	$wrapper_attributes = get_block_wrapper_attributes();
