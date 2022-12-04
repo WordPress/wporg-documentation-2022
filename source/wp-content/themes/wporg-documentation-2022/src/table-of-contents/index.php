@@ -197,13 +197,12 @@ function inject_ids_into_headings( $content, $items ) {
 		}
 
 		$replacements[] = sprintf(
-			'<%1$s id="%2$s" class="%3$s" tabindex="-1" %4$s>%5$s <a href="#%2$s" title="%6$s"></a></%1$s>',
+			'<%1$s id="%2$s" class="%3$s" tabindex="-1" %4$s><a href="#%2$s">%5$s</a></%1$s>',
 			$tag,
 			$id,
 			$class_name,
 			$extra_attrs,
-			$title,
-			__( 'Link', 'wporg-docs' )
+			$title
 		);
 	}
 
