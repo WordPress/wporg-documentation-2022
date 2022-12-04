@@ -1,10 +1,14 @@
 // stylelint-disable-next-line selector-id-pattern
 #wp--skip-link--target {
-	scroll-margin-top: var(--wp-local-header-offset, 0);
+	@media (min-width: 890px) {
+		scroll-margin-top: var(--wp-local-header-offset, 0);
+	}
 }
 
 .is-toc-heading {
-	scroll-margin-top: var(--wp-local-header-offset, 0);
+	@media (min-width: 890px) {
+		scroll-margin-top: var(--wp-local-header-offset, 0);
+	}
 
 	a {
 		display: inline-block;
