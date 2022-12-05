@@ -48,5 +48,14 @@
 				}
 			}
 		}
-	}
+	},
+	"customTemplates": [
+		{
+			"name": "page-topic-landing",
+			"title": "Topic Landing Page",
+			"postTypes": [
+				"page"
+			]
+		}
+	]
 }
