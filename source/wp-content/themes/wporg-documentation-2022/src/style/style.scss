@@ -3,11 +3,13 @@
  * templates or theme.json settings.
  */
 
-// Locally override this value to create a fixed breakpoint, rather than the
-// scaling effect from `clamp(…)`.
-// @todo Maybe move this to the parent theme, if this behavior is preferred.
 body[class] {
+	// Locally override this value to create a fixed breakpoint, rather than the
+	// scaling effect from `clamp(…)`.
+	// @todo Maybe move this to the parent theme, if this behavior is preferred.
 	--wp--preset--spacing--60: 20px;
+	// Height of the local header (breadcrumbs & subnav).
+	--wp-local-header-offset: 57px;
 }
 
 @media (min-width: 890px) {
@@ -22,19 +24,30 @@ p.has-background {
 	padding: var(--wp--preset--spacing--20);
 }
 
+.sidebar-container .is-link-to-top {
+	display: none;
+}
+
 // Slot the search & table of contents into a floating sidebar on large screens.
 @media (min-width: 1280px) {
 	.sidebar-container {
 		position: absolute;
-		// 57px is height of the sticky bar.
-		top: calc(var(--wp-global-header-offset, 0px) + 57px);
+		top: calc(var(--wp-global-header-offset, 0px) + var(--wp-local-header-offset, 0px));
 		// Total = left edge spacing, content width, space between content & sidebar.
 		// stylelint-disable-next-line max-line-length
 		left: calc(var(--wp--preset--spacing--80) + var(--wp--style--global--content-size) + var(--wp--preset--spacing--60));
 		// Total = right edge spacing.
 		right: var(--wp--preset--spacing--60);
 		margin-top: var(--wp--preset--spacing--40) !important;
-		max-width: var(--wp--style--global--content-size);
+		max-width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size));
+
+		&.is-fixed-sidebar {
+			position: fixed;
+
+			.is-link-to-top {
+				display: block;
+			}
+		}
 	}
 }
 

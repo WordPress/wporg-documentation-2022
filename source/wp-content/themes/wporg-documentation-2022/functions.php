@@ -2,6 +2,9 @@
 
 namespace WordPressdotorg\Theme\Documentation_2022;
 
+// Block files
+require_once __DIR__ . '/src/table-of-contents/index.php';
+
 /**
  * Actions and filters.
  */
