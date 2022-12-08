@@ -49,6 +49,11 @@ function should_use_new_theme() {
 		return true;
 	}
 
+	// Some bbPress permalinks use non-pretty links from the site root.
+	if ( '/' === $request_uri && ! empty( $_GET['post_type'] ) && in_array( $_GET['post_type'], [ 'topic', 'reply' ] ) ) {
+		return false;
+	}
+	
 	// A list of specific pages to use the new theme.
 	$new_theme_pages = array(
 		'/',
