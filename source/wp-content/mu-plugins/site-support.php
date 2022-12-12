@@ -60,19 +60,48 @@ function should_use_new_theme() {
 	return false;
 }
 
-// Only run this code on local envs and in sandboxes.
-if ( 'production' !== wp_get_environment_type() ) {
-	if ( should_use_new_theme() ) {
-		add_filter( 'template', function() { return PARENT_THEME; } );
-		add_filter( 'stylesheet', function() { return CHILD_THEME; } );
-	} else {
-		// Support theme is not nested in local envs.
-		if ( 'local' === wp_get_environment_type() ) {
-			add_filter( 'template', function() { return 'wporg-support'; } );
-			add_filter( 'stylesheet', function() { return 'wporg-support'; } );
-		} else {
-			add_filter( 'template', function() { return 'pub/wporg-support'; } );
-			add_filter( 'stylesheet', function() { return 'pub/wporg-support'; } );
-		}
+/**
+ * Check some site conditions to determine whether to show the new theme.
+ *
+ * This is different from should_use_new_theme because that checks whether the
+ * current page should use the new theme, regardless of user permissions. This
+ * checks whether the current environment/user should see the new theme.
+ */
+function can_preview_theme() {
+	// If this is not production (sandbox or local), allow the new theme.
+	if ( 'production' !== wp_get_environment_type() ) {
+		return true;
 	}
+
+	// If the user is a wporg user and they've added the preview string, allow the new theme.
+	return current_user_can( 'read' ) && isset( $_GET['_theme_preview'] );
 }
+
+/**
+ * Override the template value.
+ */
+function override_template() {
+	if ( should_use_new_theme() && can_preview_theme() ) {
+		return PARENT_THEME;
+	}
+	if ( 'local' === wp_get_environment_type() ) {
+		return 'wporg-support';
+	}
+	return 'pub/wporg-support';
+}
+
+/**
+ * Override the stylesheet value.
+ */
+function override_stylesheet() {
+	if ( should_use_new_theme() && can_preview_theme() ) {
+		return CHILD_THEME;
+	}
+	if ( 'local' === wp_get_environment_type() ) {
+		return 'wporg-support';
+	}
+	return 'pub/wporg-support';
+}
+
+add_filter( 'template', __NAMESPACE__ . '\override_template' );
+add_filter( 'stylesheet', __NAMESPACE__ . '\override_stylesheet' );
