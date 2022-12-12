@@ -46,8 +46,49 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	if ( is_front_page() ) {
 		return array();
 	}
-
 	$breadcrumbs[0]['title'] = __( 'Documentation', 'wporg-docs' );
+
+	if ( is_category() ) {
+		// Format: home / topic page / category
+		$category    = get_queried_object();
+		$breadcrumbs = array( $breadcrumbs[0] );
+		if ( $category->category_parent ) {
+			$parent        = get_term( $category->category_parent );
+			$breadcrumbs[] = array(
+				// @todo This should link to the topic landing page.
+				'url'   => get_term_link( $parent->term_id, $parent->taxonomy ),
+				'title' => $parent->name,
+			);
+		}
+		$breadcrumbs[] = array(
+			'url'   => '',
+			'title' => $category->name,
+		);
+	} elseif ( is_singular( 'helphub_article' ) ) {
+		// Format: home / topic page / category / article title
+		$breadcrumbs = array( $breadcrumbs[0] );
+		$categories  = get_the_category();
+		if ( $categories ) {
+			$category = $categories[0];
+			if ( $category->parent ) {
+				$parent        = get_term( $category->parent );
+				$breadcrumbs[] = array(
+					// @todo This should link to the topic landing page.
+					'url'   => get_term_link( $parent->term_id, $parent->taxonomy ),
+					'title' => $parent->name,
+				);
+			}
+			$breadcrumbs[] = array(
+				'url'   => get_term_link( $category->term_id, $category->taxonomy ),
+				'title' => $category->name,
+			);
+		}
+		$breadcrumbs[] = array(
+			'url'   => '',
+			'title' => get_the_title(),
+		);
+	}
+
 	return $breadcrumbs;
 }
 
