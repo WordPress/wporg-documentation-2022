@@ -52,6 +52,10 @@ function should_use_new_theme() {
 	// A list of specific pages to use the new theme.
 	$new_theme_pages = array(
 		'/',
+		'/overview/',
+		'/support-guides/',
+		'/technical-guides/',
+		'/customization/',
 	);
 	if ( in_array( $request_uri, $new_theme_pages ) ) {
 		return true;
