@@ -9,8 +9,6 @@ require_once __DIR__ . '/src/table-of-contents/index.php';
  * Actions and filters.
  */
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
-add_filter( 'render_block_core/pattern', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
-add_filter( 'the_content', __NAMESPACE__ . '\prevent_arrow_emoji', 20 );
 add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\pre_get_posts' );
 add_filter( 'comment_form_defaults', __NAMESPACE__ . '\comment_form_defaults' );
@@ -36,17 +34,6 @@ function enqueue_assets() {
 		array( 'wporg-parent-2021-style', 'wporg-global-fonts' ),
 		filemtime( __DIR__ . '/build/style/style-index.css' )
 	);
-}
-
-/**
- * See https://github.com/WordPress/wporg-main-2022/blob/4f8a3a9c1e1f6cb2a3aff648457a85278679d6cb/source/wp-content/themes/wporg-main-2022/functions.php#L88
- * This should be moved to the parent theme.
- *
- * @param string $content Content of the current post.
- * @return string The updated content.
- */
-function prevent_arrow_emoji( $content ) {
-	return preg_replace( '/([←↑→↓↔↕↖↗↘↙])/u', '\1&#65038;', $content );
 }
 
 /**
