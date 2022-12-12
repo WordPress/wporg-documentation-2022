@@ -55,8 +55,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		if ( $category->category_parent ) {
 			$parent        = get_term( $category->category_parent );
 			$breadcrumbs[] = array(
-				// @todo This should link to the topic landing page.
-				'url'   => get_term_link( $parent->term_id, $parent->taxonomy ),
+				'url'   => get_topic_permalink( $parent ),
 				'title' => $parent->name,
 			);
 		}
@@ -73,8 +72,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 			if ( $category->parent ) {
 				$parent        = get_term( $category->parent );
 				$breadcrumbs[] = array(
-					// @todo This should link to the topic landing page.
-					'url'   => get_term_link( $parent->term_id, $parent->taxonomy ),
+					'url'   => get_topic_permalink( $parent ),
 					'title' => $parent->name,
 				);
 			}
@@ -90,6 +88,25 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	}
 
 	return $breadcrumbs;
+}
+
+/**
+ * Get the topic landing page permalink for a given parent category.
+ */
+function get_topic_permalink( $category ) {
+	if ( empty( $category->slug ) ) {
+		return '';
+	}
+	switch ( $category->slug ) {
+		case 'wordpress-overview':
+			return site_url( '/overview/' );
+		case 'technical-guides':
+			return site_url( '/technical-guides/' );
+		case 'support-guides':
+			return site_url( '/support-guides/' );
+		case 'customization':
+			return site_url( '/customization/' );
+	}
 }
 
 /**
