@@ -101,10 +101,11 @@ function get_topic_permalink( $category ) {
 	if ( empty( $category->slug ) ) {
 		return '';
 	}
-        if ( 'wordpress-overview' === $category->slug ) {
-	    return site_url( '/overview/' );
+
+	if ( 'wordpress-overview' === $category->slug ) {
+		return site_url( '/overview/' );
 	}
-	
+
 	return site_url( '/' . $category->slug . '/' );
 }
 
