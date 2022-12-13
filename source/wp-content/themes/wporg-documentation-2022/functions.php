@@ -101,16 +101,11 @@ function get_topic_permalink( $category ) {
 	if ( empty( $category->slug ) ) {
 		return '';
 	}
-	switch ( $category->slug ) {
-		case 'wordpress-overview':
-			return site_url( '/overview/' );
-		case 'technical-guides':
-			return site_url( '/technical-guides/' );
-		case 'support-guides':
-			return site_url( '/support-guides/' );
-		case 'customization':
-			return site_url( '/customization/' );
+        if ( 'wordpress-overview' === $category->slug ) {
+	    return site_url( '/overview/' );
 	}
+	
+	return site_url( '/' . $category->slug . '/' );
 }
 
 /**
