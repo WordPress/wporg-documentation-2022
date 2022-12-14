@@ -80,3 +80,19 @@ if ( 'production' !== wp_get_environment_type() ) {
 		}
 	}
 }
+
+/**
+ * Add rewrite rules.
+ *
+ * This function needs to live in this file, so that it's ran no matter what theme is dynamically activated by
+ * the `template` / `stylesheet` callbacks above.
+ */
+function add_rewrite_rules() {
+	// e.g., https://wordpress.org/support/users/foo/edit/account/
+	add_rewrite_rule(
+		bbp_get_user_slug() . '/([^/]+)/' . bbp_get_edit_slug() . '/account/?$',
+		'index.php?' . bbp_get_user_rewrite_id()  . '=$matches[1]&' . 'edit_account=1',
+		'top'
+	);
+}
+add_action( 'init', __NAMESPACE__ . '\add_rewrite_rules' );
