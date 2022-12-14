@@ -47,8 +47,66 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		return array();
 	}
 
+	// Set the first item's title. By default this is the site title, but the
+	// site title for `w.org/support` is "WordPress Forums", which is not
+	// correct for the breadcrumbs.
 	$breadcrumbs[0]['title'] = __( 'Documentation', 'wporg-docs' );
+
+	if ( is_category() ) {
+		// Format: home / topic page / category
+		$category    = get_queried_object();
+		$breadcrumbs = array( $breadcrumbs[0] );
+		if ( $category->category_parent ) {
+			$parent        = get_term( $category->category_parent );
+			$breadcrumbs[] = array(
+				'url'   => get_topic_permalink( $parent ),
+				'title' => $parent->name,
+			);
+		}
+		$breadcrumbs[] = array(
+			'url'   => '',
+			'title' => $category->name,
+		);
+	} elseif ( is_singular( 'helphub_article' ) ) {
+		// Format: home / topic page / category / article title
+		$breadcrumbs = array( $breadcrumbs[0] );
+		$categories  = get_the_category();
+		if ( $categories ) {
+			$category = $categories[0];
+			if ( $category->parent ) {
+				$parent        = get_term( $category->parent );
+				$breadcrumbs[] = array(
+					'url'   => get_topic_permalink( $parent ),
+					'title' => $parent->name,
+				);
+			}
+			$breadcrumbs[] = array(
+				'url'   => get_term_link( $category->term_id, $category->taxonomy ),
+				'title' => $category->name,
+			);
+		}
+		$breadcrumbs[] = array(
+			'url'   => '',
+			'title' => get_the_title(),
+		);
+	}
+
 	return $breadcrumbs;
+}
+
+/**
+ * Get the topic landing page permalink for a given parent category.
+ */
+function get_topic_permalink( $category ) {
+	if ( empty( $category->slug ) ) {
+		return '';
+	}
+
+	if ( 'wordpress-overview' === $category->slug ) {
+		return site_url( '/overview/' );
+	}
+
+	return site_url( '/' . $category->slug . '/' );
 }
 
 /**

@@ -89,6 +89,26 @@ p.has-background {
 
 .wp-block-wporg-site-breadcrumbs {
 	min-height: 23px;
+
+	+ .wp-block-navigation {
+		--navigation-layout-wrap: nowrap;
+	}
+}
+
+@media (max-width: 781px) {
+	.wp-block-wporg-site-breadcrumbs span:not(:first-child,:last-child) {
+		display: none;
+	}
+}
+
+@media (max-width: 599px) {
+	.wporg-site-breadcrumbs-container {
+		width: calc(100% - 44px);
+	}
+
+	.wp-block-wporg-site-breadcrumbs span:not(:first-child) {
+		display: none;
+	}
 }
 
 @media (max-width: 781px) {
