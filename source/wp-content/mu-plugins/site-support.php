@@ -91,7 +91,7 @@ function add_rewrite_rules() {
 	// e.g., https://wordpress.org/support/users/foo/edit/account/
 	add_rewrite_rule(
 		bbp_get_user_slug() . '/([^/]+)/' . bbp_get_edit_slug() . '/account/?$',
-		'index.php?' . bbp_get_user_rewrite_id()  . '=$matches[1]&' . 'edit_account=1',
+		'index.php?' . bbp_get_user_rewrite_id() . '=$matches[1]&edit_account=1',
 		'top'
 	);
 }
