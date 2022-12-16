@@ -4,20 +4,8 @@
  */
 
 body[class] {
-	// Locally override this value to create a fixed breakpoint, rather than the
-	// scaling effect from `clamp(…)`.
-	// @todo Maybe move this to the parent theme, if this behavior is preferred.
-	--wp--preset--spacing--60: 20px;
 	// Height of the local header (breadcrumbs & subnav).
 	--wp-local-header-offset: 57px;
-}
-
-@media (min-width: 890px) {
-
-	// When larger than 890px, this should snap to 80px.
-	body[class] {
-		--wp--preset--spacing--60: 80px;
-	}
 }
 
 p.has-background {
@@ -29,17 +17,14 @@ p.has-background {
 }
 
 // Slot the search & table of contents into a floating sidebar on large screens.
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
 	.sidebar-container {
 		position: absolute;
 		top: calc(var(--wp-global-header-offset, 0px) + var(--wp-local-header-offset, 0px));
-		// Total = left edge spacing, content width, space between content & sidebar.
-		// stylelint-disable-next-line max-line-length
-		left: calc(var(--wp--preset--spacing--80) + var(--wp--style--global--content-size) + var(--wp--preset--spacing--60));
-		// Total = right edge spacing.
-		right: var(--wp--preset--spacing--60);
+		// Right offset should be "edge spacing" at minimum, otherwise calculate it to be centered.
+		right: max(var(--wp--preset--spacing--edge-space), calc((100% - var(--wp--style--global--wide-size)) / 2));
+		width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size) - 145px);
 		margin-top: var(--wp--preset--spacing--40) !important;
-		max-width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size));
 
 		&.is-fixed-sidebar {
 			position: fixed;
@@ -93,21 +78,19 @@ p.has-background {
 	+ .wp-block-navigation {
 		--navigation-layout-wrap: nowrap;
 	}
-}
 
-@media (max-width: 781px) {
-	.wp-block-wporg-site-breadcrumbs span:not(:first-child,:last-child) {
-		display: none;
+	@media (max-width: 781px) {
+		span:not(:first-child,:last-child) {
+			display: none;
+		}
 	}
-}
 
-@media (max-width: 599px) {
-	.wporg-site-breadcrumbs-container {
+	@media (max-width: 599px) {
 		width: calc(100% - 44px);
-	}
 
-	.wp-block-wporg-site-breadcrumbs span:not(:first-child) {
-		display: none;
+		span:not(:first-child) {
+			display: none;
+		}
 	}
 }
 
@@ -115,5 +98,16 @@ p.has-background {
 	.wp-block-column[style*="border-right-"] {
 		border-right: none !important;
 		border-bottom: 1px solid var(--wp--preset--color--light-grey-1);
+
+		&[style*="padding-right"] {
+			padding-right: var(--wp--preset--spacing--edge-space) !important;
+			padding-left: var(--wp--preset--spacing--edge-space) !important;
+			margin-right: calc(-1 * var(--wp--preset--spacing--edge-space)) !important;
+			margin-left: calc(-1 * var(--wp--preset--spacing--edge-space)) !important;
+		}
+
+		+ .wp-block-column[style*="padding-left"] {
+			padding-left: 0 !important;
+		}
 	}
 }
