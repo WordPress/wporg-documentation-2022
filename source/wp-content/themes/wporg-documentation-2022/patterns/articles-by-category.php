@@ -2,7 +2,7 @@
 /**
  * Title: Articles by Category
  * Slug: wporg-documentation-2022/articles-by-category
- * Category: query
+ * Categories: wporg
  */
 
 ?>

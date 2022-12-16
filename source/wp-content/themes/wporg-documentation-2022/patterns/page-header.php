@@ -2,7 +2,7 @@
 /**
  * Title: Page Header
  * Slug: wporg-documentation-2022/page-header
- * Category: headers
+ * Categories: wporg
  */
 
 ?>
