@@ -24,7 +24,7 @@ p.has-background {
 		// Right offset should be "edge spacing" at minimum, otherwise calculate it to be centered.
 		right: max(var(--wp--preset--spacing--edge-space), calc((100% - var(--wp--style--global--wide-size)) / 2));
 		width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size) - 145px);
-		margin-top: var(--wp--preset--spacing--40) !important;
+		margin-top: var(--wp--preset--spacing--edge-space) !important;
 
 		&.is-fixed-sidebar {
 			position: fixed;
