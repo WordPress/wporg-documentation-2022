@@ -43,6 +43,7 @@
 	&:focus,
 	&:focus-visible {
 		outline: none;
+		padding-left: 2px;
 		border-left: 3px solid var(--wp--preset--color--blueberry-1);
 	}
 }
