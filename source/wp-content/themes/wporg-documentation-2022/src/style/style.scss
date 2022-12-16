@@ -8,6 +8,16 @@ body[class] {
 	--wp-local-header-offset: 57px;
 }
 
+// Underline links inside query blocks to match post content behavior.
+.wp-block-post a {
+	text-decoration-line: underline;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+}
+
 p.has-background {
 	padding: var(--wp--preset--spacing--20);
 }
