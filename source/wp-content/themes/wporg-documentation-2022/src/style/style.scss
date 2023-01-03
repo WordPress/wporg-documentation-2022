@@ -29,19 +29,25 @@ p.has-background {
 // Slot the search & table of contents into a floating sidebar on large screens.
 @media (min-width: 1200px) {
 	.sidebar-container {
+		--local-content-gap: 145px;
 		position: absolute;
 		top: calc(var(--wp-global-header-offset, 0px) + var(--wp-local-header-offset, 0px));
 		// Right offset should be "edge spacing" at minimum, otherwise calculate it to be centered.
 		right: max(var(--wp--preset--spacing--edge-space), calc((100% - var(--wp--style--global--wide-size)) / 2));
-		width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size) - 145px);
+		width: calc(var(--wp--style--global--wide-size) - var(--wp--style--global--content-size) - var(--local-content-gap));
 		margin-top: var(--wp--preset--spacing--edge-space) !important;
 
 		&.is-fixed-sidebar {
 			position: fixed;
+		}
 
-			.is-link-to-top {
-				display: block;
-			}
+		&.is-bottom-sidebar {
+			position: absolute;
+		}
+
+		&.is-fixed-sidebar .is-link-to-top,
+		&.is-bottom-sidebar .is-link-to-top {
+			display: block;
 		}
 	}
 }
