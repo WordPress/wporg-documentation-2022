@@ -61,7 +61,7 @@ function render( $attributes, $content, $block ) {
 
 		$last_item = $item['level'];
 
-		$content .= '<li><a href="#' . esc_attr( $item['id'] ) . '">' . $item['title'] . '</a>';
+		$content .= '<li><a href="#' . esc_attr( $item['id'] ) . '">' . wp_strip_all_tags( $item['title'] ) . '</a>';
 	}
 
 	$content .= "</ul>\n";
@@ -181,7 +181,7 @@ function inject_ids_into_headings( $content, $items ) {
 		$matches[]   = $item[0];
 		$tag         = 'h' . $item['level'];
 		$id          = $item['id'];
-		$title       = $item['title'];
+		$title       = wp_strip_all_tags( $item['title'] );
 		$extra_attrs = $item['attrs'];
 		$class_name  = 'is-toc-heading';
 
