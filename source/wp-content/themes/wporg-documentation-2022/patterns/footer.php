@@ -21,11 +21,11 @@
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:list {"className":"is-style-links-list"} -->
 <ul class="is-style-links-list"><!-- wp:list-item -->
-<li><a href="#">Ask questions in the support forums ↗</a></li>
+<li><a href="https://wordpress.org/support/forums/">Ask questions in the support forums ↗</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="#">Check out the developer documentation ↗</a></li>
+<li><a href="https://developer.wordpress.org/">Check out the developer documentation ↗</a></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
