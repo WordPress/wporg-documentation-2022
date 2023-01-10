@@ -8,3 +8,21 @@
  */
 
 namespace WordPressdotorg\Documentation_2022\MU_Plugin;
+
+add_action( 'template_redirect', __NAMESPACE__ . '\redirect_to_google_search' );
+
+/**
+ * Redirects search results to Google Custom Search.
+ */
+function redirect_to_google_search() {
+	$search_terms = get_search_query( false );
+
+	if ( $search_terms ) {
+		$search_url = sprintf(
+			'https://wordpress.org/search/%s/?in=support_docs',
+			rawurlencode( $search_terms )
+		);
+		wp_safe_redirect( esc_url_raw( $search_url ) );
+		exit;
+	}
+}
