@@ -37,4 +37,4 @@ jobs:
             - name: Lint PHP
               run: |
                   # Eventually add source/wp-content/plugins/support-helphub
-                  composer run lint source/wp-content/themes/wporg-documentation-2022 source/wp-content/mu-plugins/site-support.php env
+                  composer run lint source/wp-content/themes/wporg-documentation-2022 source/wp-content/mu-plugins/site-documentation.php env
