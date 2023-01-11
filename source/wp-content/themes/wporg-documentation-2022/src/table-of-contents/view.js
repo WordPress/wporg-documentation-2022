@@ -74,6 +74,7 @@ function init() {
 		// class so that it's fixed and scrolls with the page content.
 		if ( container.parentNode?.offsetHeight < viewHeight ) {
 			container.parentNode.classList.add( 'is-fixed-sidebar' );
+			onScroll(); // Run once to avoid footer collisions on load (ex, when linked to #reply-title).
 			window.addEventListener( 'scroll', onScroll );
 		}
 	}
