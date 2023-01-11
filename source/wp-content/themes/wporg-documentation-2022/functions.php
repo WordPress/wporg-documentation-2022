@@ -14,6 +14,7 @@ add_action( 'pre_get_posts', __NAMESPACE__ . '\pre_get_posts' );
 add_filter( 'comment_form_defaults', __NAMESPACE__ . '\comment_form_defaults' );
 add_filter( 'comment_form_field_comment', __NAMESPACE__ . '\hide_field_after_submission' );
 add_filter( 'comment_form_submit_field', __NAMESPACE__ . '\hide_field_after_submission' );
+add_filter( 'comment_post_redirect', __NAMESPACE__ . '\comment_post_redirect', 10, 2 );
 
 // Enforce log in to leave feedback.
 add_filter( 'pre_option_comment_registration', '__return_true' );
@@ -129,9 +130,27 @@ function pre_get_posts( $query ) {
 }
 
 /**
+ * Modify the redirect after a feedback comment is submitted on an Article.
+ *
+ * @param string     $location
+ * @param WP_Comment $comment
+ *
+ * @return string
+ */
+function comment_post_redirect( $location, $comment ) {
+	if ( 'helphub_article' === get_post_type( $comment->comment_post_ID ) ) {
+		$location  = substr( $location, 0, strpos( $location, '#' ) );
+		$location  = add_query_arg( 'feedback_submitted', 1, $location );
+		$location .= '#reply-title';
+	}
+
+	return $location;
+}
+
+/**
  * Check if the current page has the submission parameter.
  *
- * This seems to work but I'm not sure where it's set.
+ * This is set on the redirect in `comment_post_redirect` (above).
  */
 function has_submitted_comment_form() {
 	return isset( $_GET['feedback_submitted'] ) && $_GET['feedback_submitted'];  // phpcs:ignore
