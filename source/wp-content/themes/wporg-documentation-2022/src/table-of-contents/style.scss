@@ -12,6 +12,7 @@
 .is-toc-heading {
 	a {
 		$icon-size: 24px;
+		display: inline-block;
 		color: inherit;
 		text-decoration: none !important;
 		padding-right: calc(#{$icon-size} + 0.1em);
@@ -43,7 +44,10 @@
 	&:focus,
 	&:focus-visible {
 		outline: none;
-		padding-left: 2px;
-		border-left: 3px solid var(--wp--preset--color--blueberry-1);
+	}
+
+	&:target {
+		padding-left: 8px;
+		border-left: 2px solid var(--wp--preset--color--blueberry-1);
 	}
 }
