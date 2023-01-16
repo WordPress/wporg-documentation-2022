@@ -89,9 +89,12 @@ p.has-background {
 	}
 }
 
-// Update border color in secondary search style, this site uses a light grey.
 .wp-block-search.is-style-secondary-search-control {
+	// Update border color in secondary search style, this site uses a light grey.
 	--local--border-color: var(--wp--preset--color--light-grey-1);
+	// Add offset spacing above the search box to optically align with title.
+	// See https://github.com/WordPress/wporg-documentation-2022/issues/36.
+	margin-top: 16px;
 }
 
 .wp-block-term-description p {
