@@ -1,8 +1,6 @@
 # Documentation
 
-The codebase and development environment for WordPress.org/support, also called HelpHub.
-
-This is as-yet incomplete, a starting point.
+The codebase and development environment for WordPress.org/documentation, formerly WordPress.org/support, also called HelpHub.
 
 ## Development
 
@@ -21,6 +19,12 @@ This is as-yet incomplete, a starting point.
 	yarn setup:tools
 	```
 
+1. Build the theme
+
+	```bash
+	yarn build:theme
+	```
+
 1. Start the local environment.
 
 	```bash
@@ -33,7 +37,7 @@ This is as-yet incomplete, a starting point.
 	yarn setup:wp
 	```
 
-1. (optional) There may be times when you want to make changes to the Parent theme and test them with the Main them. To do that:
+1. (optional) There may be times when you want to make changes to the Parent theme and test them with this theme. To do that:
 	1. Clone the Parent repo and follow the setup instructions in its `readme.md` file.
 	1. Create a `.wp-env.override.json` file in this repo
 	1. Copy the `themes` section from `.wp-env.json` and paste it into the override file. You must copy the entire section for it to work, because it won't be merged with `.wp-env.json`.
@@ -69,23 +73,16 @@ These must be run in the project's root folder, _not_ in theme/plugin subfolders
 	yarn wp-env start
 	```
 
-* Build the theme's JavaScript
+* Build the theme's CSS & JavaScript
 
 	```bash
-	yarn workspace wporg-docs-2022-theme build
+	yarn build:theme
 	```
 
 	or, automatically build on changes:
 
 	```bash
-	yarn workspace wporg-docs-2022-theme start
-	```
-
-
-* Refresh local WordPress content with a current copy from the staging site.
-
-	```bash
-	yarn setup:refresh
+	yarn start:theme
 	```
 
 * Reset WordPress to a clean install, and reconfigure. This will nuke all local WordPress content!
