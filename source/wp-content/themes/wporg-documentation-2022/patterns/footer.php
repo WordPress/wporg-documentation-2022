@@ -14,7 +14,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Can't find what you're looking for? Find out if others share your experience.</p>
+<p>Can't find what you need? Lean on the experience of the WordPress community.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
