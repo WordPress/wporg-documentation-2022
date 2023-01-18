@@ -2,6 +2,8 @@
 
 namespace WordPressdotorg\Theme\Documentation_2022;
 
+use WP_Block_Supports;
+
 // Block files
 require_once __DIR__ . '/src/table-of-contents/index.php';
 
@@ -15,6 +17,7 @@ add_filter( 'comment_form_defaults', __NAMESPACE__ . '\comment_form_defaults' );
 add_filter( 'comment_form_field_comment', __NAMESPACE__ . '\hide_field_after_submission' );
 add_filter( 'comment_form_submit_field', __NAMESPACE__ . '\hide_field_after_submission' );
 add_filter( 'comment_post_redirect', __NAMESPACE__ . '\comment_post_redirect', 10, 2 );
+add_filter( 'render_block_core/term-description', __NAMESPACE__ . '\inject_term_description', 10, 3 );
 
 // Enforce log in to leave feedback.
 add_filter( 'pre_option_comment_registration', '__return_true' );
@@ -226,4 +229,44 @@ function hide_field_after_submission( $field ) {
 		return '';
 	}
 	return $field;
+}
+
+/**
+ * Enable use of the "Term Description" block on the topic landing pages.
+ *
+ * This finds the corresponding category for the given topic page and shows that description.
+ *
+ * @param string   $block_content The block content.
+ * @param array    $block         The full block, including name and attributes.
+ * @param WP_Block $instance      The block instance.
+ *
+ * @return string Updated block content.
+ */
+function inject_term_description( $block_content, $block, $instance ) {
+	global $post;
+	$topic_pages = [
+		'overview',
+		'technical-guides',
+		'support-guides',
+		'customization',
+	];
+
+	if ( is_page( $topic_pages ) ) {
+		$term_slug        = ( 'overview' === $post->post_name ) ? 'wordpress-overview' : $post->post_name;
+		$term             = get_term_by( 'slug', $term_slug, 'category' );
+		$term_description = term_description( $term->term_id );
+		$extra_attributes = ( isset( $attributes['textAlign'] ) )
+			? array( 'class' => 'has-text-align-' . $attributes['textAlign'] )
+			: array();
+
+		// Required to prevent `block_to_render` from being null in `get_block_wrapper_attributes`.
+		$parent = WP_Block_Supports::$block_to_render;
+		WP_Block_Supports::$block_to_render = $block;
+		$wrapper_attributes = get_block_wrapper_attributes( $extra_attributes );
+		WP_Block_Supports::$block_to_render = $parent;
+
+		return '<div ' . $wrapper_attributes . '>' . $term_description . '</div>';
+	}
+
+	return $block_content;
 }
