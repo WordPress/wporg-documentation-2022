@@ -57,5 +57,11 @@
 				"page"
 			]
 		}
+	],
+	"templateParts": [
+		{
+			"name": "search",
+			"title": "Search"
+		}
 	]
 }
