@@ -18,6 +18,10 @@ add_filter( 'comment_form_field_comment', __NAMESPACE__ . '\hide_field_after_sub
 add_filter( 'comment_form_submit_field', __NAMESPACE__ . '\hide_field_after_submission' );
 add_filter( 'comment_post_redirect', __NAMESPACE__ . '\comment_post_redirect', 10, 2 );
 add_filter( 'render_block_core/term-description', __NAMESPACE__ . '\inject_term_description', 10, 3 );
+add_filter( 'jetpack_open_graph_tags', __NAMESPACE__ . '\custom_open_graph_tags' );
+
+// Enable Jetpack opengraph by default
+add_filter( 'jetpack_enable_open_graph', '__return_true' );
 
 // Enforce log in to leave feedback.
 add_filter( 'pre_option_comment_registration', '__return_true' );
@@ -269,4 +273,58 @@ function inject_term_description( $block_content, $block, $instance ) {
 	}
 
 	return $block_content;
+}
+
+/**
+ * Customize the open graph tags.
+ *
+ * This provides better tags on the front page and ensures the tags are set on content.
+ *
+ * @param array $tags Optional. Open Graph tags.
+ * @return array Filtered Open Graph tags.
+ */
+function custom_open_graph_tags( $tags = [] ) {
+	$site_title = get_bloginfo( 'name' );
+
+	// Use `name=""` for description.
+	// See Jetpacks Twitter Card for where it happens for the twitter:* fields.
+	add_filter(
+		'jetpack_open_graph_output',
+		function( $html ) {
+			return str_replace( '<meta property="description"', '<meta name="description"', $html );
+		}
+	);
+
+	// Override the Front-page tags.
+	if ( is_front_page() ) {
+		$desc = __( 'We\'ve got a variety of resources to help you get the most out of WordPress.', 'wporg-docs' );
+		return array(
+			'og:type'         => 'website',
+			'og:title'        => $site_title,
+			'og:description'  => $desc,
+			'description'     => $desc,
+			'og:url'          => home_url( '/' ),
+			'og:site_name'    => $site_title,
+			'og:image'        => 'https://wordpress.org/files/2022/08/embed-image.png',
+			'og:locale'       => get_locale(),
+			'twitter:card'    => 'summary_large_image',
+			'twitter:creator' => '@WordPress',
+		);
+	}
+
+	$post = get_post();
+	if ( ! $post ) {
+		return $tags;
+	}
+
+	$title = get_the_title();
+	$desc  = get_the_excerpt();
+
+	$tags['og:title']            = $title;
+	$tags['twitter:text:title']  = $title;
+	$tags['og:description']      = $desc;
+	$tags['twitter:description'] = $desc;
+	$tags['description']         = $desc;
+
+	return $tags;
 }
