@@ -77,18 +77,22 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		$breadcrumbs = array( $breadcrumbs[0] );
 		$categories  = get_the_category();
 		if ( $categories ) {
-			$category = $categories[0];
-			if ( $category->parent ) {
-				$parent        = get_term( $category->parent );
+			$cats_without_parents = wp_list_filter( $categories, [ 'parent' => 0 ] );
+			$cats_with_parents = wp_list_filter( $categories, [ 'parent' => 0 ], 'NOT' );
+			if ( $cats_without_parents ) {
+				$category = reset( $cats_without_parents );
 				$breadcrumbs[] = array(
-					'url'   => get_topic_permalink( $parent ),
-					'title' => $parent->name,
+					'url'   => get_topic_permalink( $category ),
+					'title' => $category->name,
 				);
 			}
-			$breadcrumbs[] = array(
-				'url'   => get_term_link( $category->term_id, $category->taxonomy ),
-				'title' => $category->name,
-			);
+			if ( $cats_with_parents ) {
+				$category = reset( $cats_with_parents );
+				$breadcrumbs[] = array(
+					'url'   => get_term_link( $category->term_id, $category->taxonomy ),
+					'title' => $category->name,
+				);
+			}
 		}
 		$breadcrumbs[] = array(
 			'url'   => '',
