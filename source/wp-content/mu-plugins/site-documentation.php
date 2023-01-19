@@ -42,9 +42,6 @@ function redirect_old_content() {
 		// Renamed categories.
 		'/documentation/category/basic-administration/' => '/documentation/category/dashboard/',
 		'/documentation/category/troubleshooting/'      => '/documentation/category/faqs/',
-		'/documentation/category/installation/'         => '/documentation/category/installation/',
-		'/documentation/category/maintenance/'          => '/documentation/category/maintenance/',
-		'/documentation/category/security/'             => '/documentation/category/security/',
 		'/documentation/category/getting-started/'      => '/documentation/category/where-to-start/',
 
 		// Top-level category landing pages.
