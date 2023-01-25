@@ -28,6 +28,12 @@ p.has-background {
 	font-size: clamp(54px, 13.6vw - 0.15rem, 120px) !important;
 }
 
+@media (max-width: 400px) {
+	.wp-block-heading.has-heading-cta-font-size {
+		font-size: 36px !important;
+	}
+}
+
 .sidebar-container .is-link-to-top {
 	display: none;
 }
