@@ -175,6 +175,8 @@ function comment_form_defaults( $fields ) {
 	$post    = get_post();
 	$post_id = $post->ID;
 
+	$forums_url = 'https://wordpress.org/support/forums/';
+
 	$user          = wp_get_current_user();
 	$user_identity = $user->exists() ? $user->display_name : '';
 
@@ -182,7 +184,7 @@ function comment_form_defaults( $fields ) {
 		/* translators: 1: log in link, 2: support forums link. */
 		__( '<a href="%1$s">Log in</a> to submit feedback. If you need suppport with something that wasn&#39;t covered by this article, please post your question in the <a href="%2$s">support forums</a>.', 'wporg-docs' ),
 		esc_url( wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) ) ),
-		esc_url( home_url( '/forums/' ) )
+		esc_url( $forums_url )
 	);
 	$fields['must_log_in'] = '<p class="must-log-in">' . $str_log_in . '</p>';
 
@@ -201,7 +203,7 @@ function comment_form_defaults( $fields ) {
 	$fields['logged_in_as'] .= sprintf(
 		/* translators: %s: support forums link. */
 		__( 'This is not for personalized support. Please create a <a href="%s">forum thread</a> instead to receive help from the community.', 'wporg-docs' ),
-		esc_url( home_url( '/forums/' ) )
+		esc_url( $forums_url )
 	);
 	$fields['logged_in_as'] .= '</p>';
 
