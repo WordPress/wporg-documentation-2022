@@ -182,7 +182,7 @@ function comment_form_defaults( $fields ) {
 
 	$str_log_in = sprintf(
 		/* translators: 1: log in link, 2: support forums link. */
-		__( '<a href="%1$s">Log in</a> to submit feedback. If you need suppport with something that wasn&#39;t covered by this article, please post your question in the <a href="%2$s">support forums</a>.', 'wporg-docs' ),
+		__( '<a href="%1$s">Log in to submit feedback</a> If you need support with something that wasn&#39;t covered by this article, please post your question in the <a href="%2$s">support forums</a>.', 'wporg-docs' ),
 		esc_url( wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) ) ),
 		esc_url( $forums_url )
 	);
