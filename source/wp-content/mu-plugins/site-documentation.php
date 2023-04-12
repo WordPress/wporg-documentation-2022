@@ -49,9 +49,10 @@ function redirect_old_content() {
 		'/documentation/category/basic-usage/' => '/documentation/support-guides/',
 
 		// @todo When the Advanced Administration handbook is updated, add those redirects here.
+		'/documentation/article/how-to-install-wordpress/' => 'https://developer.wordpress.org/advanced-administration/before-install/howto-install/',
 	];
 
-	$request_uri = $_SERVER['REQUEST_URI'] ?? '/documentation-test/'; // phpcs:ignore
+	$request_uri = $_SERVER['REQUEST_URI'] ?? '/documentation/'; // phpcs:ignore
 
 	foreach ( $path_redirects as $old_path => $new_url ) {
 		if ( str_starts_with( $request_uri, $old_path ) ) {
