@@ -98,7 +98,7 @@ function redirect_old_content() {
 		'/documentation/article/why-should-i-use-https/'                            => 'https://developer.wordpress.org/advanced-administration/security/https/',
 		'/documentation/article/wordpress-backups/'                                 => 'https://developer.wordpress.org/advanced-administration/security/backup/',
 		'/documentation/article/wordpress-multisite-domain-mapping/'                => 'https://developer.wordpress.org/advanced-administration/multisite/domain-mapping/',
-	]; 
+	];
 
 	$request_uri = $_SERVER['REQUEST_URI'] ?? '/documentation/'; // phpcs:ignore
 
