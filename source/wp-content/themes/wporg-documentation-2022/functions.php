@@ -55,7 +55,7 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 	// Set the first item's title. By default this is the site title, but the
 	// site title for `w.org/support` is "WordPress Forums", which is not
 	// correct for the breadcrumbs.
-	$breadcrumbs[0]['title'] = __( 'Documentation', 'wporg-docs' );
+	$breadcrumbs[0]['title'] = __( 'Home', 'wporg-docs' );
 
 	if ( is_category() ) {
 		// Format: home / topic page / category
