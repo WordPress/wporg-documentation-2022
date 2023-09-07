@@ -15,6 +15,7 @@ add_filter( 'comment_form_submit_field', __NAMESPACE__ . '\hide_field_after_subm
 add_filter( 'comment_post_redirect', __NAMESPACE__ . '\comment_post_redirect', 10, 2 );
 add_filter( 'render_block_core/term-description', __NAMESPACE__ . '\inject_term_description', 10, 3 );
 add_filter( 'jetpack_open_graph_tags', __NAMESPACE__ . '\custom_open_graph_tags' );
+add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 
 // Enable Jetpack opengraph by default
 add_filter( 'jetpack_enable_open_graph', '__return_true' );
@@ -252,4 +253,30 @@ function custom_open_graph_tags( $tags = [] ) {
 	$tags['description']         = $desc;
 
 	return $tags;
+}
+
+/**
+ * Provide a list of local navigation menus.
+ */
+function add_site_navigation_menus( $menus ) {
+	return array(
+		'documentation' => array(
+			array(
+				'label' => __( 'WordPress Overview', 'wporg-docs' ),
+				'url' => '/overview/',
+			),
+			array(
+				'label' => __( 'Technical Guides', 'wporg-docs' ),
+				'url' => '/technical-guides/',
+			),
+			array(
+				'label' => __( 'Support Guides', 'wporg-docs' ),
+				'url' => '/support-guides/',
+			),
+			array(
+				'label' => __( 'Customization', 'wporg-docs' ),
+				'url' => '/customization/',
+			),
+		),
+	);
 }
