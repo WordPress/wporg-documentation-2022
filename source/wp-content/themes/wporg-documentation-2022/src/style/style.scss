@@ -43,28 +43,6 @@ p.has-background {
 	margin: 0;
 }
 
-.wp-block-wporg-site-breadcrumbs {
-	min-height: 23px;
-
-	+ .wp-block-navigation {
-		--navigation-layout-wrap: nowrap;
-	}
-
-	@media (max-width: 781px) {
-		span:not(:first-child, :last-child) {
-			display: none;
-		}
-	}
-
-	@media (max-width: 599px) {
-		width: calc(100% - 44px);
-
-		span:not(:first-child) {
-			display: none;
-		}
-	}
-}
-
 @media (max-width: 781px) {
 	.wp-block-column[style*="border-right-"] {
 		border-right: none !important;

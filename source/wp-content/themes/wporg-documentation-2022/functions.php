@@ -8,6 +8,7 @@ use WP_Block_Supports;
  * Actions and filters.
  */
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets' );
+add_filter( 'wporg_block_site_breadcrumbs', __NAMESPACE__ . '\set_site_breadcrumbs' );
 add_action( 'pre_get_posts', __NAMESPACE__ . '\pre_get_posts' );
 add_filter( 'comment_form_defaults', __NAMESPACE__ . '\comment_form_defaults' );
 add_filter( 'comment_form_field_comment', __NAMESPACE__ . '\hide_field_after_submission' );
@@ -39,6 +40,83 @@ function enqueue_assets() {
 		array( 'wporg-parent-2021-style', 'wporg-global-fonts' ),
 		filemtime( __DIR__ . '/build/style/style-index.css' )
 	);
+}
+
+/**
+ * Update the breadcrumbs format for this site.
+ *
+ * @param array $breadcrumbs An array of breadcrumb links.
+ * @return array Updated breadcrumbs.
+ */
+function set_site_breadcrumbs( $breadcrumbs ) {
+	if ( is_front_page() ) {
+		return array();
+	}
+
+	// Set the first item's title. By default this is the site title, but the
+	// site title for `w.org/support` is "WordPress Forums", which is not
+	// correct for the breadcrumbs.
+	$breadcrumbs[0]['title'] = __( 'Home', 'wporg-docs' );
+
+	if ( is_category() ) {
+		// Format: home / topic page / category
+		$category    = get_queried_object();
+		$breadcrumbs = array( $breadcrumbs[0] );
+		if ( $category->category_parent ) {
+			$parent        = get_term( $category->category_parent );
+			$breadcrumbs[] = array(
+				'url'   => get_topic_permalink( $parent ),
+				'title' => $parent->name,
+			);
+		}
+		$breadcrumbs[] = array(
+			'url'   => '',
+			'title' => $category->name,
+		);
+	} elseif ( is_singular( 'helphub_article' ) ) {
+		// Format: home / topic page / category / article title
+		$breadcrumbs = array( $breadcrumbs[0] );
+		$categories  = get_the_category();
+		if ( $categories ) {
+			$cats_without_parents = wp_list_filter( $categories, [ 'parent' => 0 ] );
+			$cats_with_parents = wp_list_filter( $categories, [ 'parent' => 0 ], 'NOT' );
+			if ( $cats_without_parents ) {
+				$category = reset( $cats_without_parents );
+				$breadcrumbs[] = array(
+					'url'   => get_topic_permalink( $category ),
+					'title' => $category->name,
+				);
+			}
+			if ( $cats_with_parents ) {
+				$category = reset( $cats_with_parents );
+				$breadcrumbs[] = array(
+					'url'   => get_term_link( $category->term_id, $category->taxonomy ),
+					'title' => $category->name,
+				);
+			}
+		}
+		$breadcrumbs[] = array(
+			'url'   => '',
+			'title' => get_the_title(),
+		);
+	}
+
+	return $breadcrumbs;
+}
+
+/**
+ * Get the topic landing page permalink for a given parent category.
+ */
+function get_topic_permalink( $category ) {
+	if ( empty( $category->slug ) ) {
+		return '';
+	}
+
+	if ( 'wordpress-overview' === $category->slug ) {
+		return site_url( '/overview/' );
+	}
+
+	return site_url( '/' . $category->slug . '/' );
 }
 
 /**
