@@ -355,6 +355,10 @@ function add_site_navigation_menus( $menus ) {
 				'label' => __( 'Customization', 'wporg-docs' ),
 				'url' => '/customization/',
 			),
+			array(
+				'label' => __( 'Get Involved', 'wporg-docs' ),
+				'url' => 'https://make.wordpress.org/docs/',
+			),
 		),
 	);
 }
