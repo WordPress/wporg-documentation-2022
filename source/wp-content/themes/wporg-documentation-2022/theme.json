@@ -1,7 +1,24 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
-	"settings": {},
+	"settings": {
+		"custom": {
+			"wporg-sidebar-container": {
+				"spacing": {
+					"margin": {
+						"top": "-60px"
+					}
+				},
+				"width": "340px",
+				"position": {
+					"right": {
+						"default": "0",
+						"fixed":  "max(var(--wp--preset--spacing--edge-space), calc((100% - var(--wp--style--global--wide-size)) / 2))"
+					}
+				}
+			}
+		}
+	},
 	"styles": {
 		"blocks": {
 			"core/preformatted": {
