@@ -3,11 +3,6 @@
  * templates or theme.json settings.
  */
 
-body[class] {
-	// Height of the local header (breadcrumbs & subnav).
-	--wp-local-header-offset: 57px;
-}
-
 // Underline links inside query blocks to match post content behavior.
 .wp-block-post a {
 	text-decoration-line: underline;
