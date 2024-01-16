@@ -98,6 +98,17 @@ function redirect_old_content() {
 		'/documentation/article/why-should-i-use-https/'                            => 'https://developer.wordpress.org/advanced-administration/security/https/',
 		'/documentation/article/wordpress-backups/'                                 => 'https://developer.wordpress.org/advanced-administration/security/backup/',
 		'/documentation/article/wordpress-multisite-domain-mapping/'                => 'https://developer.wordpress.org/advanced-administration/multisite/domain-mapping/',
+		'/documentation/article/installing-wordpress-at-popular-hosting-companies/'	=> 'https://developer.wordpress.org/advanced-administration/before-install/popular-providers/',
+		'/documentation/article/network-admin-settings-screen/'											=> 'https://developer.wordpress.org/advanced-administration/multisite/admin/settings/',
+		'/documentation/article/migrating-multiple-blogs-into-wordpress-multisite/' => 'https://developer.wordpress.org/advanced-administration/multisite/sites-multisite/',
+		'/documentation/article/using-cpanel/'																			=> 'https://developer.wordpress.org/advanced-administration/server/control-panel/',
+		'/documentation/article/configuring-wildcard-subdomains/'										=> 'https://developer.wordpress.org/advanced-administration/server/subdomains-wildcard/',
+		'/documentation/article/htaccess/'																					=> 'https://developer.wordpress.org/advanced-administration/server/web-server/httpd/',
+		'/documentation/article/common-wordpress-errors/'														=> 'https://developer.wordpress.org/advanced-administration/wordpress/common-errors/',
+		'/documentation/article/importing-content/'																	=> 'https://developer.wordpress.org/advanced-administration/wordpress/import/',
+		'/documentation/article/loopbacks/'																					=> 'https://developer.wordpress.org/advanced-administration/wordpress/loopback/',
+		'/documentation/article/embeds/'																						=> 'https://developer.wordpress.org/advanced-administration/wordpress/oembed/',
+		'/documentation/article/post-formats/'																			=> 'https://developer.wordpress.org/advanced-administration/wordpress/post-formats/',
 	];
 
 	$request_uri = $_SERVER['REQUEST_URI'] ?? '/documentation/'; // phpcs:ignore
