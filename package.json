@@ -20,7 +20,8 @@
 		"start:theme": "yarn workspace wporg-docs-2022-theme start",
 		"lighthouse": "lighthouse-ci http://localhost:8888/ --accessibility=100 --best-practices=100 --seo=100",
 		"lighthouse:desktop": "lighthouse http://localhost:8888/ --view --preset=desktop --output-path=lighthouse.html",
-		"lighthouse:mobile": "lighthouse http://localhost:8888/ --view --screenEmulation.mobile --output-path=lighthouse.html"
+		"lighthouse:mobile": "lighthouse http://localhost:8888/ --view --screenEmulation.mobile --output-path=lighthouse.html",
+		"lint:php": "composer run lint source/wp-content/themes/wporg-documentation-2022 source/wp-content/mu-plugins/site-documentation.php env"
 	},
 	"workspaces": [
 		"source/wp-content/themes/wporg-documentation-2022"

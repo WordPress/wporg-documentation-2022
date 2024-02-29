@@ -14,27 +14,13 @@ jobs:
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-            - name: Install NodeJS
-              uses: actions/setup-node@eeb10cff27034e7acf239c5d29f62154018672fd # v3.3.0
+            - name: Setup
+              uses: WordPress/wporg-repo-tools/.github/actions/setup@trunk
               with:
-                  node-version-file: '.nvmrc'
-                  cache: yarn
+                token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Install dependencies & setup configs
-              run: |
-                  yarn setup:tools
+            - name: Lint
+              uses: WordPress/wporg-repo-tools/.github/actions/lint@trunk
 
-            - name: Lint CSS
-              run: |
-                  yarn workspaces run lint:css
-
-            - name: Lint JS
-              run: |
-                  yarn workspaces run lint:js
-
-            - name: Lint PHP
-              run: |
-                  # Eventually add source/wp-content/plugins/support-helphub
-                  composer run lint source/wp-content/themes/wporg-documentation-2022 source/wp-content/mu-plugins/site-documentation.php env
