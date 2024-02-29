@@ -6,21 +6,18 @@
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"devDependencies": {
-		"@wordpress/env": "5.9.0",
-		"@wordpress/scripts": "25.1.0",
-		"backstopjs": "6.1.4",
+		"@wordpress/env": "9.4.0",
+		"@wordpress/scripts": "27.3.0",
 		"lighthouse-ci": "1.13.1"
 	},
 	"scripts": {
 		"setup:tools": "yarn && composer install && TEXTDOMAIN=wporg-docs composer exec update-configs",
-		"setup:wp": "wp-env run cli \"bash env/setup.sh\"",
+		"setup:wp": "wp-env run cli bash env/setup.sh",
 		"update:tools": "composer update && TEXTDOMAIN=wporg-docs composer exec update-configs",
 		"wp-env": "wp-env",
 		"build": "yarn workspaces run build",
 		"build:theme": "yarn workspace wporg-docs-2022-theme build",
 		"start:theme": "yarn workspace wporg-docs-2022-theme start",
-		"backstop:reference": "npm exec backstop reference",
-		"backstop:test": "npm exec backstop test",
 		"lighthouse": "lighthouse-ci http://localhost:8888/ --accessibility=100 --best-practices=100 --seo=100",
 		"lighthouse:desktop": "lighthouse http://localhost:8888/ --view --preset=desktop --output-path=lighthouse.html",
 		"lighthouse:mobile": "lighthouse http://localhost:8888/ --view --screenEmulation.mobile --output-path=lighthouse.html"

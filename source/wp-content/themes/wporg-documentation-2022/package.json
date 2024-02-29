@@ -7,7 +7,7 @@
 	"private": true,
 	"dependencies": {},
 	"devDependencies": {
-		"@wordpress/scripts": "25.1.0"
+		"@wordpress/scripts": "27.3.0"
 	},
 	"eslintConfig": {
 		"extends": "../../../../.eslintrc.js"
