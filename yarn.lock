@@ -3296,7 +3296,7 @@
     terminal-link "^2.0.0"
     yargs "^17.3.0"
 
-"@wordpress/eslint-plugin@^17.9.0":
+"@wordpress/eslint-plugin@17.9.0", "@wordpress/eslint-plugin@^17.9.0":
   version "17.9.0"
   resolved "https://registry.yarnpkg.com/@wordpress/eslint-plugin/-/eslint-plugin-17.9.0.tgz#91be3114899a85d571fcc7165240f3ff8ac95737"
   integrity sha512-vPDxa5TwidfU0B3DMxje0Xv2fHT8tY/ar9i305y7oH2ug86RKFo62JZ2lUAA5g+eUCCA+ZV/pLO8lSZo9w3XEQ==

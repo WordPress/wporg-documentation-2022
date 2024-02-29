@@ -7,6 +7,7 @@
 	"private": true,
 	"dependencies": {},
 	"devDependencies": {
+		"@wordpress/eslint-plugin": "17.9.0",
 		"@wordpress/scripts": "27.3.0"
 	},
 	"eslintConfig": {
