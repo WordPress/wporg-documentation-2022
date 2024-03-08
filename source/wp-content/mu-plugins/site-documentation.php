@@ -67,6 +67,7 @@ function redirect_old_content() {
 		'/documentation/article/debugging-a-wordpress-network/'                     => 'https://developer.wordpress.org/advanced-administration/debug/debug-network/',
 		'/documentation/article/debugging-in-wordpress/'                            => 'https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/',
 		'/documentation/article/editing-files/'                                     => 'https://developer.wordpress.org/advanced-administration/wordpress/edit-files/',
+		'/documentation/article/editing-wp-config-php/'                             => 'https://developer.wordpress.org/advanced-administration/wordpress/wp-config/',
 		'/documentation/article/embeds/'                                            => 'https://developer.wordpress.org/advanced-administration/wordpress/oembed/',
 		'/documentation/article/emptying-a-database-table/'                         => 'https://developer.wordpress.org/advanced-administration/server/empty-database/',
 		'/documentation/article/faq-troubleshooting-2/'                             => 'https://developer.wordpress.org/advanced-administration/resources/faq/',
@@ -108,6 +109,7 @@ function redirect_old_content() {
 		'/documentation/article/using-your-browser-to-diagnose-javascript-errors/'  => 'https://developer.wordpress.org/advanced-administration/debug/debug-javascript/',
 		'/documentation/article/why-should-i-use-https/'                            => 'https://developer.wordpress.org/advanced-administration/security/https/',
 		'/documentation/article/wordpress-backups/'                                 => 'https://developer.wordpress.org/advanced-administration/security/backup/',
+		'/documentation/article/wordpress-feeds/'                                   => 'https://developer.wordpress.org/advanced-administration/wordpress/feeds/',
 		'/documentation/article/wordpress-multisite-domain-mapping/'                => 'https://developer.wordpress.org/advanced-administration/multisite/domain-mapping/',
 	];
 
