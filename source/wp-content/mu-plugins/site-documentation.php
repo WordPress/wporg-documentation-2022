@@ -76,6 +76,7 @@ function redirect_old_content() {
 		'/documentation/article/hardening-wordpress/'                               => 'https://developer.wordpress.org/advanced-administration/security/hardening/',
 		'/documentation/article/how-to-install-wordpress/'                          => 'https://developer.wordpress.org/advanced-administration/before-install/howto-install/',
 		'/documentation/article/htaccess/'                                          => 'https://developer.wordpress.org/advanced-administration/server/web-server/httpd/',
+		'/documentation/article/https-for-wordpress/'                               => 'https://developer.wordpress.org/advanced-administration/security/https/',
 		'/documentation/article/importing-content/'                                 => 'https://developer.wordpress.org/advanced-administration/wordpress/import/',
 		'/documentation/article/installing-multiple-blogs/'                         => 'https://developer.wordpress.org/advanced-administration/before-install/multiple-instances/',
 		'/documentation/article/installing-wordpress-at-popular-hosting-companies/' => 'https://developer.wordpress.org/advanced-administration/before-install/popular-providers/',
