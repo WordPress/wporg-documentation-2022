@@ -1,7 +1,16 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
-	"settings": {},
+	"settings": {
+		"custom": {
+			"alignment": {
+				"aligned-max-width": "100%"
+			}
+		},
+		"layout": {
+			"contentSize": "960px"
+		}
+	},
 	"styles": {
 		"blocks": {
 			"core/preformatted": {
