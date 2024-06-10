@@ -1,24 +1,25 @@
 <!-- wp:template-part {"slug":"header-topic-landing","className":"has-display-contents"} /-->
 
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|20","left":"var:preset|spacing|edge-space","right":"var:preset|spacing|edge-space"}}},"className":"alignfull","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--edge-space);padding-left:var(--wp--preset--spacing--edge-space)">
+
+	<!-- wp:template-part {"slug":"search","theme":"wporg-documentation-2022"} /-->
+
+</div>
+<!-- /wp:group -->
+
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"left":"var:preset|spacing|edge-space","right":"var:preset|spacing|edge-space"}}}} -->
-<main class="wp-block-group alignfull" style="padding-left:var(--wp--preset--spacing--edge-space);padding-right:var(--wp--preset--spacing--edge-space)">
-	<!-- wp:columns {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|edge-space","bottom":"var:preset|spacing|40"}}}} -->
-	<div class="wp-block-columns alignwide" style="margin-top:var(--wp--preset--spacing--edge-space);margin-bottom:var(--wp--preset--spacing--40)">
-		<!-- wp:column {"width":"66.66%"} -->
-		<div class="wp-block-column" style="flex-basis:66.66%">
-			<!-- wp:post-title {"level":1} /-->
-	
-			<!-- wp:term-description {"style":{"spacing":{"margin":{"top":"8px"}}},"textColor":"charcoal-4"} /-->
-		</div>
-		<!-- /wp:column -->
+<main class="wp-block-group alignwide" style="padding-left:var(--wp--preset--spacing--edge-space);padding-right:var(--wp--preset--spacing--edge-space)">
+
+	<!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|edge-space","bottom":"var:preset|spacing|40"}}}} -->
+	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--edge-space);margin-bottom:var(--wp--preset--spacing--40)">
 		
-		<!-- wp:column {"width":"33.33%"} -->
-		<div class="wp-block-column" style="flex-basis:33.33%">
-			<!-- wp:template-part {"slug":"search"} /-->
-		</div>
-		<!-- /wp:column -->
+		<!-- wp:post-title {"level":1} /-->
+
+		<!-- wp:term-description {"style":{"spacing":{"margin":{"top":"8px"}}},"textColor":"charcoal-4"} /-->
+		
 	</div>
-	<!-- /wp:columns -->
+	<!-- /wp:group -->
 
 	<!-- wp:group {"tagName":"article","align":"wide","layout":{"type":"default"}} -->
 	<article class="wp-block-group alignwide">
