@@ -24,7 +24,7 @@ function init() {
 					return render_default_themes_block( $attributes, $content, $block );
 				} else if ( is_category() ) {
 					return render_category_block( $attributes, $content, $block );
-				} else if ( $attributes['category'] ) {
+				} else if ( ! empty( $attributes['category'] ) ) {
 					return render_landing_block( $attributes, $content, $block );
 				}
 
