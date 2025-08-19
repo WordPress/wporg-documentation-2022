@@ -47,27 +47,25 @@ body.page .wp-block-wporg-local-navigation-bar .wp-block-query-title {
 
 /* Fix: Prevent horizontal scroll and ensure embedded media is responsive */
 .entry-content {
-  overflow-x: hidden; /* scope to article content only */
+	overflow-x: hidden; /* scope to article content only */
 
-  .wp-block-video,
-  .wp-block-embed {
-    max-width: 100%;
-  }
+	.wp-block-video,
+	.wp-block-embed {
+		max-width: 100%;
+	}
 
-  .wp-block-video video,
-  .wp-block-embed__wrapper iframe,
-  .wp-block-embed embed,
-  .wp-block-embed object {
-    display: block;
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-  }
+	.wp-block-video video,
+	.wp-block-embed__wrapper iframe,
+	.wp-block-embed embed,
+	.wp-block-embed object {
+		display: block;
+		max-width: 100%;
+		width: 100%;
+		height: auto;
+	}
 
-  figure.wp-block-video,
-  figure.wp-block-embed {
-    max-width: 100%;
-  }
+	figure.wp-block-video,
+	figure.wp-block-embed {
+		max-width: 100%;
+	}
 }
-
-
