@@ -22,6 +22,11 @@ add_filter( 'render_block_core/term-description', __NAMESPACE__ . '\inject_term_
 add_filter( 'jetpack_open_graph_tags', __NAMESPACE__ . '\custom_open_graph_tags' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 
+add_action( 'admin_bar_menu', __NAMESPACE__ . '\\hide_site_editor_node', 999 );
+function hide_site_editor_node( \WP_Admin_Bar $bar ) : void {
+	$bar->remove_node( 'site-editor' );
+}
+
 // Enable Jetpack opengraph by default
 add_filter( 'jetpack_enable_open_graph', '__return_true' );
 
