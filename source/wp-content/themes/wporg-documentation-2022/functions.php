@@ -22,11 +22,19 @@ add_filter( 'render_block_core/term-description', __NAMESPACE__ . '\inject_term_
 add_filter( 'jetpack_open_graph_tags', __NAMESPACE__ . '\custom_open_graph_tags' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
 
-add_action( 'admin_bar_menu', __NAMESPACE__ . '\\hide_site_editor_node', 999 );
-function hide_site_editor_node( \WP_Admin_Bar $bar ) : void {
+// Hide edit Site from the admin bar (Site Editor entry point).
+add_action( 'admin_bar_menu', __NAMESPACE__ . '\hide_site_editor_node', 999 );
+
+/**
+ * Remove the Site Editor admin-bar item on the docs site.
+ *
+ * Keeps editors in the page editor workflow.
+ *
+ * @param WP_Admin_Bar $bar Admin Bar instance.
+ */
+function hide_site_editor_node( $bar ) {
 	$bar->remove_node( 'site-editor' );
 }
-
 // Enable Jetpack opengraph by default
 add_filter( 'jetpack_enable_open_graph', '__return_true' );
 
