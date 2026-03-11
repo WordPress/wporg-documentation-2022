@@ -59,13 +59,13 @@
 					}
 				},
 				{
-					"name": "wordpress-meta/wporg-support",
+					"name": "wordpress-meta/wporg-support-2024",
 					"type": "wordpress-theme",
 					"version": "1",
 					"source": {
 						"type": "svn",
 						"url": "https://meta.svn.wordpress.org/sites/",
-						"reference": "trunk/wordpress.org/public_html/wp-content/themes/pub/wporg-support/"
+						"reference": "trunk/wordpress.org/public_html/wp-content/themes/pub/wporg-support-2024/"
 					}
 				}
 			]
@@ -73,7 +73,7 @@
 	],
 	"require": {
 		"wordpress-meta/pub": "1",
-		"wordpress-meta/wporg-support": "1",
+		"wordpress-meta/wporg-support-2024": "1",
 		"wpackagist-plugin/bbpress": "*",
 		"wpackagist-plugin/gutenberg": "*",
 		"wpackagist-plugin/jetpack": "*",
