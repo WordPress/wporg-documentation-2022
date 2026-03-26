@@ -48,8 +48,9 @@ function redirect_old_content() {
 		'/documentation/category/customizing/' => '/documentation/customization/',
 		'/documentation/category/basic-usage/' => '/documentation/support-guides/',
 
-		// WordPress release that never was.
+		// WordPress releases that never were.
 		'/documentation/wordpress-version/version-6-5-1/' => '/documentation/wordpress-version/version-6-5-2/',
+		'/documentation/wordpress-version/version-6-8-4/' => '/documentation/wordpress-version/version-6-8-5/',
 
 		// Redirect articles to Advanced Administration handbook on devhub.
 		'/documentation/article/administration-over-ssl/'                           => 'https://developer.wordpress.org/advanced-administration/security/https/',
