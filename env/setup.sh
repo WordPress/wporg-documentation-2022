@@ -2,7 +2,7 @@
 
 root=$( dirname $( wp config path ) )
 
-wp theme activate wporg-support
+wp theme activate wporg-support-2024
 
 wp rewrite structure '/%postname%/'
 wp rewrite flush --hard
