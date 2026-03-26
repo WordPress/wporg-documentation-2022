@@ -7,7 +7,7 @@
 	"private": true,
 	"devDependencies": {
 		"@wordpress/env": "10.4.0",
-		"@wordpress/scripts": "28.4.0",
+		"@wordpress/scripts": "30.27.0",
 		"lighthouse-ci": "1.13.1"
 	},
 	"scripts": {

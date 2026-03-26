@@ -47,7 +47,7 @@ The codebase and development environment for WordPress.org/documentation, former
 	{
 		"themes": [
 			"./source/wp-content/themes/wporg-documentation-2022",
-			"./source/wp-content/themes/wporg-support",
+			"./source/wp-content/themes/wporg-support-2024",
 			"../wporg-parent-2021/source/wp-content/themes/wporg-parent-2021"
 		]
 	}
