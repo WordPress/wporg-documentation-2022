@@ -21,6 +21,7 @@ add_filter( 'comment_post_redirect', __NAMESPACE__ . '\comment_post_redirect', 1
 add_filter( 'render_block_core/term-description', __NAMESPACE__ . '\inject_term_description', 10, 3 );
 add_filter( 'jetpack_open_graph_tags', __NAMESPACE__ . '\custom_open_graph_tags' );
 add_filter( 'wporg_block_navigation_menus', __NAMESPACE__ . '\add_site_navigation_menus' );
+add_action( 'admin_bar_menu', __NAMESPACE__ . '\hide_site_editor_node', 999 );
 
 // Enable Jetpack opengraph by default
 add_filter( 'jetpack_enable_open_graph', '__return_true' );
@@ -30,6 +31,15 @@ add_filter( 'pre_option_comment_registration', '__return_true' );
 
 // Remove table of contents.
 add_filter( 'wporg_handbook_toc_should_add_toc', '__return_false' );
+
+/**
+ * Remove the "Edit Site" admin-bar item so editors stay in the page editor workflow.
+ *
+ * @param WP_Admin_Bar $bar Admin Bar instance.
+ */
+function hide_site_editor_node( $bar ) {
+	$bar->remove_node( 'site-editor' );
+}
 
 /**
  * Enqueue scripts and styles.
