@@ -5,7 +5,7 @@ namespace WordPressdotorg\Theme\Documentation_2022;
 use WP_Block_Supports;
 
 // Block files
-require_once( __DIR__ . '/src/article-list/index.php' );
+require_once __DIR__ . '/src/article-list/index.php';
 
 /**
  * Actions and filters.
@@ -95,8 +95,8 @@ function set_site_breadcrumbs( $breadcrumbs ) {
 		$breadcrumbs = array( $breadcrumbs[0] );
 		$categories  = get_the_category();
 		if ( $categories ) {
-			$cats_without_parents = wp_list_filter( $categories, [ 'parent' => 0 ] );
-			$cats_with_parents = wp_list_filter( $categories, [ 'parent' => 0 ], 'NOT' );
+			$cats_without_parents = wp_list_filter( $categories, array( 'parent' => 0 ) );
+			$cats_with_parents = wp_list_filter( $categories, array( 'parent' => 0 ), 'NOT' );
 			if ( $cats_without_parents ) {
 				$category = reset( $cats_without_parents );
 				$breadcrumbs[] = array(
@@ -294,12 +294,12 @@ function hide_field_after_submission( $field ) {
  */
 function inject_term_description( $block_content, $block, $instance ) {
 	global $post;
-	$topic_pages = [
+	$topic_pages = array(
 		'overview',
 		'technical-guides',
 		'support-guides',
 		'customization',
-	];
+	);
 
 	if ( is_page( $topic_pages ) ) {
 		$term_slug        = ( 'overview' === $post->post_name ) ? 'wordpress-overview' : $post->post_name;
@@ -329,14 +329,14 @@ function inject_term_description( $block_content, $block, $instance ) {
  * @param array $tags Optional. Open Graph tags.
  * @return array Filtered Open Graph tags.
  */
-function custom_open_graph_tags( $tags = [] ) {
+function custom_open_graph_tags( $tags = array() ) {
 	$site_title = get_bloginfo( 'name' );
 
 	// Use `name=""` for description.
 	// See Jetpacks Twitter Card for where it happens for the twitter:* fields.
 	add_filter(
 		'jetpack_open_graph_output',
-		function( $html ) {
+		function ( $html ) {
 			return str_replace( '<meta property="description"', '<meta name="description"', $html );
 		}
 	);
