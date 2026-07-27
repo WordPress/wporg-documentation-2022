@@ -19,7 +19,7 @@ function init() {
 	register_block_type(
 		dirname( __DIR__, 2 ) . '/build/article-list',
 		array(
-			'render_callback' => function( $attributes, $content, $block ) {
+			'render_callback' => function ( $attributes, $content, $block ) {
 				if ( is_category( 'default-themes' ) ) {
 					return render_default_themes_block( $attributes, $content, $block );
 				} else if ( is_category() ) {
@@ -65,7 +65,7 @@ function render_landing_block( $attributes, $content, $block ) {
 	// wp term meta add [term_id] sort_order [value]
 	usort(
 		$sections,
-		function( $a, $b ) {
+		function ( $a, $b ) {
 			$a_order = (int) get_term_meta( $a->term_id, 'sort_order', true );
 			$b_order = (int) get_term_meta( $b->term_id, 'sort_order', true );
 			return $a_order <=> $b_order;

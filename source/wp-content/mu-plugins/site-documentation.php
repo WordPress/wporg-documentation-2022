@@ -34,7 +34,7 @@ function redirect_to_google_search() {
  * This does not include the article renaming since core will handle that.
  */
 function redirect_old_content() {
-	$path_redirects = [
+	$path_redirects = array(
 		// Removed articles.
 		'/documentation/article/wordpress-features/' => 'https://wordpress.org/about/features/',
 		'/documentation/article/requirements/'       => 'https://wordpress.org/about/requirements/',
@@ -115,7 +115,7 @@ function redirect_old_content() {
 		'/documentation/article/wordpress-backups/'                                 => 'https://developer.wordpress.org/advanced-administration/security/backup/',
 		'/documentation/article/wordpress-feeds/'                                   => 'https://developer.wordpress.org/advanced-administration/wordpress/feeds/',
 		'/documentation/article/wordpress-multisite-domain-mapping/'                => 'https://developer.wordpress.org/advanced-administration/multisite/domain-mapping/',
-	];
+	);
 
 	$request_uri = $_SERVER['REQUEST_URI'] ?? '/documentation/'; // phpcs:ignore
 
