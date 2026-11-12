@@ -134,6 +134,7 @@ final class HelpHub_Post_Types {
 		add_action( 'pre_get_posts', array( $this, 'fix_archive_category' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_filter( 'post_updated_messages', array( $this, 'updated_messages' ) );
+		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_updated_messages' ), 10, 2 );
 	} // End __construct()
 
 	/**
@@ -166,7 +167,7 @@ final class HelpHub_Post_Types {
 				'labels'    => array(
 					'name'                     => __( 'Articles', 'wporg-forums' ),
 					'singular_name'            => __( 'Article', 'wporg-forums' ),
-					'add_new'                  => _x( 'Add', 'article', 'wporg-forums' ),
+					'add_new'                  => __( 'Add Article', 'wporg-forums' ),
 					'add_new_item'             => __( 'Add Article', 'wporg-forums' ),
 					'edit_item'                => __( 'Edit Article', 'wporg-forums' ),
 					'new_item'                 => __( 'New Article', 'wporg-forums' ),
@@ -206,7 +207,7 @@ final class HelpHub_Post_Types {
 				'labels'    => array(
 					'name'                     => __( 'WordPress Versions', 'wporg-forums' ),
 					'singular_name'            => __( 'WordPress Version', 'wporg-forums' ),
-					'add_new'                  => _x( 'Add', 'WordPress version', 'wporg-forums' ),
+					'add_new'                  => __( 'Add WordPress Version', 'wporg-forums' ),
 					'add_new_item'             => __( 'Add WordPress Version', 'wporg-forums' ),
 					'edit_item'                => __( 'Edit WordPress Version', 'wporg-forums' ),
 					'new_item'                 => __( 'New WordPress Version', 'wporg-forums' ),
@@ -274,14 +275,15 @@ final class HelpHub_Post_Types {
 	 * Set the admin notices shown after saving an article or a WordPress version.
 	 *
 	 * @access public
+	 * @since  1.3.0
 	 *
-	 * @param array $messages Post updated messages, keyed by post type.
+	 * @param  array $messages Post updated messages, keyed by post type.
 	 * @return array Post updated messages.
 	 */
 	public function updated_messages( $messages ) {
 		$post = get_post();
 
-		if ( ! $post ) {
+		if ( ! $post || ! in_array( $post->post_type, array( 'helphub_article', 'helphub_version' ), true ) ) {
 			return $messages;
 		}
 
@@ -294,48 +296,100 @@ final class HelpHub_Post_Types {
 		$preview_link   = ' <a target="_blank" href="' . esc_url( $preview_url ) . '">%s</a>';
 		$scheduled_link = ' <a target="_blank" href="' . esc_url( $permalink ) . '">%s</a>';
 
-		$view_article      = sprintf( $view_link, __( 'View article', 'wporg-forums' ) );
-		$preview_article   = sprintf( $preview_link, __( 'Preview article', 'wporg-forums' ) );
-		$scheduled_article = sprintf( $scheduled_link, __( 'Preview article', 'wporg-forums' ) );
+		if ( 'helphub_article' === $post->post_type ) {
+			$view_article      = sprintf( $view_link, __( 'View article', 'wporg-forums' ) );
+			$preview_article   = sprintf( $preview_link, __( 'Preview article', 'wporg-forums' ) );
+			$scheduled_article = sprintf( $scheduled_link, __( 'Preview article', 'wporg-forums' ) );
 
-		$messages['helphub_article'] = array(
-			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'Article updated.', 'wporg-forums' ) . $view_article,
-			2  => __( 'Custom field updated.', 'wporg-forums' ),
-			3  => __( 'Custom field deleted.', 'wporg-forums' ),
-			4  => __( 'Article updated.', 'wporg-forums' ),
-			/* translators: %s: Date and time of the revision. */
-			5  => $revision ? sprintf( __( 'Article restored to revision from %s.', 'wporg-forums' ), $revision ) : false,
-			6  => __( 'Article published.', 'wporg-forums' ) . $view_article,
-			7  => __( 'Article saved.', 'wporg-forums' ),
-			8  => __( 'Article submitted.', 'wporg-forums' ) . $preview_article,
-			/* translators: %s: Scheduled date for the article. */
-			9  => sprintf( __( 'Article scheduled for: %s.', 'wporg-forums' ), $scheduled_date ) . $scheduled_article,
-			10 => __( 'Article draft updated.', 'wporg-forums' ) . $preview_article,
-		);
+			$messages['helphub_article'] = array(
+				0  => '', // Unused. Messages start at index 1.
+				1  => __( 'Article updated.', 'wporg-forums' ) . $view_article,
+				2  => __( 'Custom field updated.', 'wporg-forums' ),
+				3  => __( 'Custom field deleted.', 'wporg-forums' ),
+				4  => __( 'Article updated.', 'wporg-forums' ),
+				/* translators: %s: Date and time of the revision. */
+				5  => $revision ? sprintf( __( 'Article restored to revision from %s.', 'wporg-forums' ), $revision ) : false,
+				6  => __( 'Article published.', 'wporg-forums' ) . $view_article,
+				7  => __( 'Article saved.', 'wporg-forums' ),
+				8  => __( 'Article submitted.', 'wporg-forums' ) . $preview_article,
+				/* translators: %s: Scheduled date for the article. */
+				9  => sprintf( __( 'Article scheduled for: %s.', 'wporg-forums' ), $scheduled_date ) . $scheduled_article,
+				10 => __( 'Article draft updated.', 'wporg-forums' ) . $preview_article,
+			);
+		} else {
+			$view_version      = sprintf( $view_link, __( 'View WordPress version', 'wporg-forums' ) );
+			$preview_version   = sprintf( $preview_link, __( 'Preview WordPress version', 'wporg-forums' ) );
+			$scheduled_version = sprintf( $scheduled_link, __( 'Preview WordPress version', 'wporg-forums' ) );
 
-		$view_version      = sprintf( $view_link, __( 'View WordPress version', 'wporg-forums' ) );
-		$preview_version   = sprintf( $preview_link, __( 'Preview WordPress version', 'wporg-forums' ) );
-		$scheduled_version = sprintf( $scheduled_link, __( 'Preview WordPress version', 'wporg-forums' ) );
-
-		$messages['helphub_version'] = array(
-			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'WordPress version updated.', 'wporg-forums' ) . $view_version,
-			2  => __( 'Custom field updated.', 'wporg-forums' ),
-			3  => __( 'Custom field deleted.', 'wporg-forums' ),
-			4  => __( 'WordPress version updated.', 'wporg-forums' ),
-			/* translators: %s: Date and time of the revision. */
-			5  => $revision ? sprintf( __( 'WordPress version restored to revision from %s.', 'wporg-forums' ), $revision ) : false,
-			6  => __( 'WordPress version published.', 'wporg-forums' ) . $view_version,
-			7  => __( 'WordPress version saved.', 'wporg-forums' ),
-			8  => __( 'WordPress version submitted.', 'wporg-forums' ) . $preview_version,
-			/* translators: %s: Scheduled date for the WordPress version. */
-			9  => sprintf( __( 'WordPress version scheduled for: %s.', 'wporg-forums' ), $scheduled_date ) . $scheduled_version,
-			10 => __( 'WordPress version draft updated.', 'wporg-forums' ) . $preview_version,
-		);
+			$messages['helphub_version'] = array(
+				0  => '', // Unused. Messages start at index 1.
+				1  => __( 'WordPress version updated.', 'wporg-forums' ) . $view_version,
+				2  => __( 'Custom field updated.', 'wporg-forums' ),
+				3  => __( 'Custom field deleted.', 'wporg-forums' ),
+				4  => __( 'WordPress version updated.', 'wporg-forums' ),
+				/* translators: %s: Date and time of the revision. */
+				5  => $revision ? sprintf( __( 'WordPress version restored to revision from %s.', 'wporg-forums' ), $revision ) : false,
+				6  => __( 'WordPress version published.', 'wporg-forums' ) . $view_version,
+				7  => __( 'WordPress version saved.', 'wporg-forums' ),
+				8  => __( 'WordPress version submitted.', 'wporg-forums' ) . $preview_version,
+				/* translators: %s: Scheduled date for the WordPress version. */
+				9  => sprintf( __( 'WordPress version scheduled for: %s.', 'wporg-forums' ), $scheduled_date ) . $scheduled_version,
+				10 => __( 'WordPress version draft updated.', 'wporg-forums' ) . $preview_version,
+			);
+		}
 
 		return $messages;
 	} // End updated_messages()
+
+	/**
+	 * Set the admin notices shown after bulk actions on articles or WordPress versions.
+	 *
+	 * @access public
+	 * @since  1.3.0
+	 *
+	 * @param  array $bulk_messages Bulk messages, keyed by post type.
+	 * @param  array $bulk_counts   Item counts for each message.
+	 * @return array Bulk messages.
+	 */
+	public function bulk_updated_messages( $bulk_messages, $bulk_counts ) {
+		$screen = get_current_screen();
+
+		if ( ! $screen ) {
+			return $bulk_messages;
+		}
+
+		if ( 'helphub_article' === $screen->post_type ) {
+			$bulk_messages['helphub_article'] = array(
+				/* translators: %s: Number of articles. */
+				'updated'   => _n( '%s article updated.', '%s articles updated.', $bulk_counts['updated'], 'wporg-forums' ),
+				'locked'    => ( 1 === $bulk_counts['locked'] ) ? __( '1 article not updated, somebody is editing it.', 'wporg-forums' ) :
+								/* translators: %s: Number of articles. */
+								_n( '%s article not updated, somebody is editing it.', '%s articles not updated, somebody is editing them.', $bulk_counts['locked'], 'wporg-forums' ),
+				/* translators: %s: Number of articles. */
+				'deleted'   => _n( '%s article permanently deleted.', '%s articles permanently deleted.', $bulk_counts['deleted'], 'wporg-forums' ),
+				/* translators: %s: Number of articles. */
+				'trashed'   => _n( '%s article moved to the Trash.', '%s articles moved to the Trash.', $bulk_counts['trashed'], 'wporg-forums' ),
+				/* translators: %s: Number of articles. */
+				'untrashed' => _n( '%s article restored from the Trash.', '%s articles restored from the Trash.', $bulk_counts['untrashed'], 'wporg-forums' ),
+			);
+		} elseif ( 'helphub_version' === $screen->post_type ) {
+			$bulk_messages['helphub_version'] = array(
+				/* translators: %s: Number of WordPress versions. */
+				'updated'   => _n( '%s WordPress version updated.', '%s WordPress versions updated.', $bulk_counts['updated'], 'wporg-forums' ),
+				'locked'    => ( 1 === $bulk_counts['locked'] ) ? __( '1 WordPress version not updated, somebody is editing it.', 'wporg-forums' ) :
+								/* translators: %s: Number of WordPress versions. */
+								_n( '%s WordPress version not updated, somebody is editing it.', '%s WordPress versions not updated, somebody is editing them.', $bulk_counts['locked'], 'wporg-forums' ),
+				/* translators: %s: Number of WordPress versions. */
+				'deleted'   => _n( '%s WordPress version permanently deleted.', '%s WordPress versions permanently deleted.', $bulk_counts['deleted'], 'wporg-forums' ),
+				/* translators: %s: Number of WordPress versions. */
+				'trashed'   => _n( '%s WordPress version moved to the Trash.', '%s WordPress versions moved to the Trash.', $bulk_counts['trashed'], 'wporg-forums' ),
+				/* translators: %s: Number of WordPress versions. */
+				'untrashed' => _n( '%s WordPress version restored from the Trash.', '%s WordPress versions restored from the Trash.', $bulk_counts['untrashed'], 'wporg-forums' ),
+			);
+		}
+
+		return $bulk_messages;
+	} // End bulk_updated_messages()
 
 	/**
 	 * Main HelpHub_Post_Types Instance
